@@ -1,3 +1,4 @@
+import time
 import pygame
 from pygame.locals import (
     K_UP,
@@ -32,25 +33,38 @@ class Player(pygame.sprite.Sprite):
         self.surf.set_colorkey((0, 0, 0))
         self.rect = self.surf.get_rect()
 
+    def set_surf_default(self):
+        self.surf = pygame.image.load("space_soldier.png").convert()
+        self.surf.set_colorkey((0, 0, 0))
+
+    def set_surf_image(self, img):
+        self.surf = pygame.image.load(img).convert()
+        self.surf.set_colorkey((0, 0, 0))
+
     def update(self, keys, collided, img):
+
         if keys[K_UP]:
             if self.rect.colliderect(collided):
                 self.rect.move_ip(0, 2)
+            self.set_surf_image(img)
             self.rect.move_ip(0, -1)
 
         if keys[K_DOWN]:
             if self.rect.colliderect(collided):
                 self.rect.move_ip(0, -2)
+            self.set_surf_image(img)
             self.rect.move_ip(0, 1)
 
         if keys[K_LEFT]:
             if self.rect.colliderect(collided):
                 self.rect.move_ip(2, 0)
+            self.set_surf_image(img)
             self.rect.move_ip(-1, 0)
 
         if keys[K_RIGHT]:
             if self.rect.colliderect(collided):
                 self.rect.move_ip(-2, 0)
+            self.set_surf_image(img)
             self.rect.move_ip(1, 0)
 
         if self.rect.left < 0:
@@ -68,6 +82,7 @@ def main():
 
     is_running = 1
     screen = pygame.display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))
+
     player = Player()
     wall = Wall(500, 500)
     walls = pygame.sprite.Group()
@@ -75,6 +90,8 @@ def main():
     all_sprites = pygame.sprite.Group()
     all_sprites.add(player)
     all_sprites.add(wall)
+    count = 0
+    images = ["move_1.png", "move_2.png", "move_3.png"]
     while is_running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -82,8 +99,13 @@ def main():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     is_running = 0
+
+        if count >= 3:
+            count = 0
+            player.set_surf_default()
         pressed_keys = pygame.key.get_pressed()
-        player.update(pressed_keys, wall, 1)
+        player.update(pressed_keys, wall, images[count])
+        count += 1
         screen.fill((255, 255, 255))
         for sprite in all_sprites:
             screen.blit(sprite.surf, sprite.rect)
