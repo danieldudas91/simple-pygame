@@ -82,7 +82,8 @@ def main():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     is_running = 0
-
+        pressed_keys = pygame.key.get_pressed()
+        player.update(pressed_keys, wall, 1)
         screen.fill((255, 255, 255))
         for sprite in all_sprites:
             screen.blit(sprite.surf, sprite.rect)
