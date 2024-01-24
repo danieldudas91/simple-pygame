@@ -68,6 +68,13 @@ def main():
 
     is_running = 1
     screen = pygame.display.set_mode((BOARD_WIDTH, BOARD_HEIGHT))
+    player = Player()
+    wall = Wall(500, 500)
+    walls = pygame.sprite.Group()
+    walls.add(wall)
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(player)
+    all_sprites.add(wall)
     while is_running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -77,6 +84,8 @@ def main():
                     is_running = 0
 
         screen.fill((255, 255, 255))
+        for sprite in all_sprites:
+            screen.blit(sprite.surf, sprite.rect)
         pygame.display.flip()
 
 
