@@ -32,6 +32,36 @@ class Player(pygame.sprite.Sprite):
         self.surf.set_colorkey((0, 0, 0))
         self.rect = self.surf.get_rect()
 
+    def update(self, keys, collided, img):
+        if keys[K_UP]:
+            if self.rect.colliderect(collided):
+                self.rect.move_ip(0, 2)
+            self.rect.move_ip(0, -1)
+
+        if keys[K_DOWN]:
+            if self.rect.colliderect(collided):
+                self.rect.move_ip(0, -2)
+            self.rect.move_ip(0, 1)
+
+        if keys[K_LEFT]:
+            if self.rect.colliderect(collided):
+                self.rect.move_ip(2, 0)
+            self.rect.move_ip(-1, 0)
+
+        if keys[K_RIGHT]:
+            if self.rect.colliderect(collided):
+                self.rect.move_ip(-2, 0)
+            self.rect.move_ip(1, 0)
+
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right >= BOARD_WIDTH:
+            self.rect.right = BOARD_WIDTH
+        if self.rect.top < 0:
+            self.rect.top = 0
+        if self.rect.bottom >= BOARD_HEIGHT:
+            self.rect.bottom = BOARD_HEIGHT
+
 
 def main():
     pygame.init()
