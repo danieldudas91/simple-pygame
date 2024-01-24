@@ -13,14 +13,24 @@ BOARD_WIDTH = 1000
 BOARD_HEIGHT = 1000
 
 
+class Wall(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super(Wall, self).__init__()
+        self.surf = pygame.Surface((50, 20))
+        self.surf.fill((0, 0, 0))
+        self.rect = self.surf.get_rect()
+        # self.rect.x = BOARD_WIDTH / 2
+        # self.rect.y = BOARD_WIDTH / 2
+        self.rect.centerx = x
+        self.rect.centery = y
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
         self.surf = pygame.image.load("space_soldier.png").convert()
         self.surf.set_colorkey((0, 0, 0))
         self.rect = self.surf.get_rect()
-
-
 
 
 def main():
