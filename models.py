@@ -78,3 +78,6 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+    def move(self):
+        self.rect.move_ip(1, 0)
