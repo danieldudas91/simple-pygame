@@ -44,7 +44,7 @@ def main():
         for sprite in all_sprites:
             screen.blit(sprite.surf, sprite.rect)
         pygame.display.flip()
-
+        bullets = list(filter(lambda x: x.is_collided is False, bullets))
 
 if __name__ == "__main__":
     main()
