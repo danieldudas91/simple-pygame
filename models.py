@@ -86,5 +86,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
-    def move(self):
+    def move(self, wall):
+        if self.rect.colliderect(wall.rect):
+            self.is_collided = True
+            self.kill()
         self.rect.move_ip(1, 0)
