@@ -66,3 +66,15 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
         if self.rect.bottom >= board_height:
             self.rect.bottom = board_height
+
+
+class Bullet(pygame.sprite.Sprite):
+    is_collided = False
+
+    def __init__(self, x, y):
+        super(Bullet, self).__init__()
+        self.surf = pygame.Surface((5, 5))
+        self.surf.fill((0, 0, 0))
+        self.rect = self.surf.get_rect()
+        self.rect.x = x
+        self.rect.y = y
