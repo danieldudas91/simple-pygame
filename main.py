@@ -1,5 +1,5 @@
 import pygame
-from pygame.locals import K_ESCAPE, KEYDOWN
+from pygame.locals import K_ESCAPE, KEYDOWN, K_SPACE
 from models import Player, Wall
 
 
@@ -21,6 +21,7 @@ def main():
     all_sprites.add(player)
     all_sprites.add(wall)
     count = 0
+    bullets = []
     images = ["move_1.png", "move_2.png", "move_3.png"]
     while is_running:
         for event in pygame.event.get():
@@ -29,7 +30,10 @@ def main():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     is_running = 0
-
+                if event.key == K_SPACE:
+                    bullets.append(player.shoot(all_sprites))
+        for b in bullets:
+            b.move(wall)
         if count >= 3:
             count = 0
             player.set_surf_default()
