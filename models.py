@@ -67,6 +67,13 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom >= board_height:
             self.rect.bottom = board_height
 
+    def shoot(self, sprites):
+        starting_x = self.rect.x + self.rect.width + 2
+        starting_y = self.rect.y + (self.rect.height / 2) + 2
+        bullet = Bullet(starting_x, starting_y)
+        sprites.add(bullet)
+        return bullet
+
 
 class Bullet(pygame.sprite.Sprite):
     is_collided = False
